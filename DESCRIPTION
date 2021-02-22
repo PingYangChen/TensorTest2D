@@ -1,7 +1,7 @@
 Package: TensorTest2D
 Type: Package
 Title: Fitting Second-Order Tensor Data
-Version: 1.0.0
+Version: 1.0.1
 Depends: R (>= 3.0.1)
 Authors@R: c(
   person("Mark", "Chen", email = "l501l501l@gmail.com", role = c("aut", "cre")),
@@ -17,7 +17,7 @@ LazyData: true
 RoxygenNote: 7.1.1
 Suggests: knitr, rmarkdown
 NeedsCompilation: no
-Packaged: 2020-10-29 06:10:00 UTC; l501l
+Packaged: 2021-03-01 06:10:00 UTC; l501l
 Author: Mark Chen [aut, cre],
   Sheng-Mao Chang [aut],
   Wenbin Lu [aut],

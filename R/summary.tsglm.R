@@ -28,7 +28,7 @@
 #'
 #' \kbd{AIC}: Akaike information criterion.
 #'
-#' @seealso \code{\link[base]{summary}}
+#' @seealso \code{\link[base]{summary}, \link{predict.tsglm}}
 #'
 #' @examples
 #' # Predefined function: sum of hadamard product in each array
