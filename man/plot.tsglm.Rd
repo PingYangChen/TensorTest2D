@@ -4,7 +4,7 @@
 \alias{plot.tsglm}
 \title{Plots}
 \usage{
-\method{plot}{tsglm}(object, X)
+\method{plot}{tsglm}(object, X, p.adjust.methods)
 }
 \arguments{
 \item{object}{an object of class \kbd{"tsglm"}.}

@@ -149,9 +149,12 @@ predict.tsglm <- function(object, newx = NULL, type = c("link", "response"), ...
 #' @author Ping-Yang Chen
 #'
 #' @export
-plot.tsglm <- function(object, X){
+plot.tsglm <- function(object, X, p.adjust.methods){
   
-  marks <- object$B_EST*(object$B_PV < 0.05)
+  adjp <- matrix(p.adjust(as.vector(object$B_PV), method = p.adjust.methods),
+                 nrow(object$B_PV), ncol(object$B_PV))
+  
+  marks <- object$B_EST*(adjp < 0.05)
   effectivepixelmarks(X, marks)
   
 }
@@ -186,7 +189,7 @@ drawpixelmarks <- function(img, marks){
   for (i in 1:nrow(img)) {
     for (j in 1:ncol(img)) {
       bcol <- ifelse(marks[i,j] == 0, NA, ifelse(marks[i,j] < 0, "blue", "red"))
-      rect(i-.49, j-.49, i+.49, j+.49, col = NA, border = bcol, lwd = 2)
+      rect(i-.5, j-.5, i+.5, j+.5, col = NA, border = bcol, lwd = 2)
     }
   }
   
