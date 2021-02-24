@@ -2,30 +2,31 @@
 % Please edit documentation in R/util.tsglm.R
 \name{drawpixelmarks}
 \alias{drawpixelmarks}
-\title{drawpixelmarks}
+\title{Marking Specific Pixels on the Given Image Plot}
 \usage{
-drawpixelmarks(img, marks)
+drawpixelmarks(img, marks, grids = FALSE, ...)
 }
 \arguments{
-\item{img}{an image data.}
+\item{img}{a matrix of image data.}
 
-\item{marks}{an 0, -1, 1 marking on the image data.}
-}
-\value{
-\kbd{plot.tsglm} returns xxx.
+\item{marks}{a matrix of the same size as \code{img}. 
+On the image plot, "red" rectangles are marked on the pixels in which the cells in \code{marks} are positive, 
+and, "blue" rectangles are marked on the pixels in which the cells in \code{marks} are negative. 
+For zero-valued cells of \code{marks}, there is no mark on the corresponding pixel for the image plot.}
+
+\item{grids}{boolean. If \code{grids = TRUE}, grid lines are added for the image plot.}
+
+\item{...}{further arguments passed to the \code{\link[graphics]{image}} function.}
 }
 \description{
-\kbd{drawpixelmarks} .
-}
-\details{
-\kbd{drawpixelmarks} is
+Marking Specific Pixels on the Given Image Plot
 }
 \examples{
 # 
 
 }
 \seealso{
-\code{\link{TRtest.omics}, \link{plot.tsglm}}
+\code{\link{plot.tsglm}}
 }
 \author{
 Ping-Yang Chen
