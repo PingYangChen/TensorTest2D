@@ -129,7 +129,7 @@ plot.tsglm <- function(object, method = p.adjust.methods, X = NULL, ...){
     drawpixelmarks(imgval, marks, grids = TRUE, col = colormap, zlim = c(-1,1)*cM)
     
   } else {
-    drawpixelmarks(X, marks, ...)
+    drawpixelmarks(X, marks, grids = FALSE, ...)
   }
 
 }
