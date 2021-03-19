@@ -123,6 +123,7 @@ plot.tsglm <- function(object, method = p.adjust.methods, X = NULL, ...){
     cM_digit <- floor(log10(cM))
     if (cM_digit < 0) {
       imgval <- round(marks, -cM_digit + 3)
+      cM <- round(cM, -cM_digit + 3)
     } else {
       imgval <- marks
     }
