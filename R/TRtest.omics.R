@@ -431,8 +431,10 @@ TRtest.omics <- function(y, X, W = NULL, n_R, family, opt = 1, max_ite = 100, to
       B_PV <- V_B
       b_PV <- V_b
     }else{
-      B_PV <- pnorm(-abs(B/V_B))*2
-      b_PV <- pnorm(-abs(beta/V_b))*2
+      #B_PV <- pnorm(-abs(B/V_B))*2
+      #b_PV <- pnorm(-abs(beta/V_b))*2
+      B_PV <- pt(-abs(B/V_B), IC_Dev$DoF[2])*2
+      b_PV <- pt(-abs(beta/V_b), IC_Dev$DoF[2])*2
     }
 
     # Tidy-up result
