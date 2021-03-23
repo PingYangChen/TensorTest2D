@@ -53,7 +53,7 @@
 #'
 #' @param y A numerical vector. Dependent variable.
 #' @param X A numerical 3-D arrary. Independent variable(3-D tensor).
-#' @param W A numerical vector. Independent variable.
+#' @param W A numerical matrix. Independent variable.
 #' @param n_R A numerical constant. A predefined value determines the rank of
 #'   the approximate matrix
 #' @param family Family of \kbd{generalized linear model}. Provide three options for model.(see more details in
