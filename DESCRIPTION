@@ -2,7 +2,7 @@ Package: TensorTest2D
 Type: Package
 Title: Fitting Second-Order Tensor Data
 Version: 1.0.1
-Depends: R (>= 3.0.1)
+Depends: R (>= 3.5.0)
 Authors@R: c(
   person("Mark", "Chen", email = "l501l501l@gmail.com", role = c("aut", "cre")),
   person("Sheng-Mao", "Chang", email = "smchang@mail.ncku.edu.tw", role = c("aut")),

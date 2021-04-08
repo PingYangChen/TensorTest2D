@@ -20,7 +20,52 @@
 #' @seealso \code{\link{TRtest.omics}, \link{summary.tsglm}}
 #'
 #' @examples
-#' See example codes in \code{\link{TRtest.omics}, \link{summary.tsglm}}.
+#' # Predefined function: sum of hadamard product in each array
+#' `%i%` <- function(X, B) sapply(1:dim(X)[3], function(i) sum(X[,,i]*B))
+#'
+#' # Simulation data
+#' n <- 1000 # number of observations
+#' n_P <- 3; n_G <- 64 # dimension of 3-D tensor variables.
+#' n_d <- 1 # number of numerical variable, if n_d == 1,  numerical variable equals to intercept.
+#' beta_True <- rep(1, n_d)
+#' B_True <- c(1,1,1)%*%t(rnorm(n_G)) + c(0, .5, .5)%*%t(rnorm(n_G))
+#' B_True <- B_True / 10
+#' W <- matrix(rnorm(n*n_d), n, n_d); W[,1] <- 1
+#' X <- array(rnorm(n*n_P*n_G), dim=c(n_P, n_G, n))
+#' ## Regression
+#' y_R<- as.vector(W%*%beta_True + X%i%B_True + rnorm(n))
+#' DATA_R <- list(y = y_R, X = X, W = W)
+#' ## Binomial
+#' p_B <- exp(W%*%beta_True + X%i%B_True); p_B <- p_B/(1+p_B)
+#' y_B <- rbinom(n, 1, p_B)
+#' DATA_B <- list(y = y_B, W = W, X = X)
+#' ## Poisson
+#' p_P <- exp(W%*%beta_True + X%i%B_True)
+#' y_P <- rpois(n, p_P)
+#' y_P[which(y_P > 170)] <- 170 # If y_P > 170, factorial(y_P) == inf.
+#' DATA_P <- list(y = y_P, W = W, X = X)
+#'
+#' # Execution
+#' ## Regression
+#' result_R <- TRtest.omics(y = DATA_R$y, X = DATA_R$X, W=NULL, n_R = 1, family = "gaussian",
+#' opt = 1, max_ite = 100, tol = 10^(-7) )
+#' ## Visualization
+#' image(B_True);image(result_R$B_EST)
+#' head(predict(result_R, DATA_R$X))
+#'
+#' ## Binomial
+#' result_B <- TRtest.omics(y = DATA_B$y, X = DATA_B$X, W=NULL, n_R = 1, family = "binomial",
+#' opt = 1, max_ite = 100, tol = 10^(-7) )
+#' ## Visualization
+#' image(B_True);image(result_B$B_EST)
+#' head(predict(result_B, DATA_B$X))
+#'
+#' ## Poisson
+#' result_P <- TRtest.omics(y = DATA_P$y, X = DATA_P$X, W=NULL, n_R = 1, family = "poisson",
+#' opt = 1, max_ite = 100, tol = 10^(-7) )
+#' ## Visualization
+#' image(B_True);image(result_P$B_EST)
+#' head(predict(result_P, DATA_P$X))
 #'
 #' @author Ping-Yang Chen
 #'
@@ -51,19 +96,17 @@ predict.tsglm <- function(object, newx, type = c("link", "response"), ...){
   }
 }
 
-
-
 #' Plot Effective Image Pixels for A \kbd{"tsglm"} Object
 #'
 #' \kbd{plot} method for self-defined class \kbd{"tsglm"}.
 #'
-#' @importFrom stats coefficients glm pnorm pt rnorm symnum
-#' @import graphics
+#' @importFrom stats p.adjust p.adjust.methods
+#' @importFrom grDevices rgb
 #'
-#' @param object an object of class \kbd{"tsglm"}.
+#' @param x an object of class \kbd{"tsglm"}.
 #' @param method p-value correction method. See \code{\link[stats]{p.adjust}}.
-#' @param X an image data that used as the background of the effectiveness markers. 
-#' If \code{X = NULL}, the background color shows the effect size of the each pixel.
+#' @param background an image data that used as the background of the effectiveness markers. 
+#' If \code{background = NULL}, the background color shows the effect size of the each pixel.
 #' @param ... further arguments passed to the \code{\link[graphics]{image}} function.
 #'
 #' @seealso \code{\link{TRtest.omics}, \link{drawpixelmarks}}
@@ -103,13 +146,13 @@ predict.tsglm <- function(object, newx, type = c("link", "response"), ...){
 #' @author Ping-Yang Chen
 #'
 #' @export
-plot.tsglm <- function(object, method = p.adjust.methods, X = NULL, ...){
+plot.tsglm <- function(x, method = p.adjust.methods, background = NULL, ...){
   
-  adjp <- matrix(p.adjust(as.vector(object$B_PV), method = method),
-                 nrow(object$B_PV), ncol(object$B_PV))
-  marks <- object$B_EST*(adjp < 0.05)
+  adjp <- matrix(p.adjust(as.vector(x$B_PV), method = method),
+                 nrow(x$B_PV), ncol(x$B_PV))
+  marks <- x$B_EST*(adjp < 0.05)
   
-  if (is.null(X)) {
+  if (is.null(background)) {
     cL <- 20
     colormap <- rgb(c(rep(0.00, 1*cL), seq(0.00, 1.00, length = 4*cL), rep(1, 3), #R
                       rep(1.00, 4*cL), seq(1.00, 0.40, length = 1*cL)),
@@ -130,11 +173,10 @@ plot.tsglm <- function(object, method = p.adjust.methods, X = NULL, ...){
     drawpixelmarks(imgval, marks, grids = TRUE, col = colormap, zlim = c(-1,1)*cM)
     
   } else {
-    drawpixelmarks(X, marks, grids = FALSE, ...)
+    drawpixelmarks(background, marks, grids = FALSE, ...)
   }
-
+  
 }
-
 
 #' Marking Specific Pixels on the Given Image Plot
 #'

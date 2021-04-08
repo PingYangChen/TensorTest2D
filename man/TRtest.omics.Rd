@@ -20,7 +20,7 @@ TRtest.omics(
 
 \item{X}{A numerical 3-D arrary. Independent variable(3-D tensor).}
 
-\item{W}{A numerical vector. Independent variable.}
+\item{W}{A numerical matrix. Independent variable.}
 
 \item{n_R}{A numerical constant. A predefined value determines the rank of
 the approximate matrix}
