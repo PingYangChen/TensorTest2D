@@ -13,7 +13,7 @@ A list of two objects, \code{omics$omics} and \code{omics$Y}.
 \href{https://string-db.org}{https://string-db.org}
 }
 \usage{
-data(omincs)
+data(omics)
 }
 \description{
 The omics data is a subset of the dataset provided by cancer cell line 

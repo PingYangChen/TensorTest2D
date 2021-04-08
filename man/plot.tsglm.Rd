@@ -4,15 +4,15 @@
 \alias{plot.tsglm}
 \title{Plot Effective Image Pixels for A \kbd{"tsglm"} Object}
 \usage{
-\method{plot}{tsglm}(object, method = p.adjust.methods, X = NULL, ...)
+\method{plot}{tsglm}(x, method = p.adjust.methods, background = NULL, ...)
 }
 \arguments{
-\item{object}{an object of class \kbd{"tsglm"}.}
+\item{x}{an object of class \kbd{"tsglm"}.}
 
 \item{method}{p-value correction method. See \code{\link[stats]{p.adjust}}.}
 
-\item{X}{an image data that used as the background of the effectiveness markers. 
-If \code{X = NULL}, the background color shows the effect size of the each pixel.}
+\item{background}{an image data that used as the background of the effectiveness markers. 
+If \code{background = NULL}, the background color shows the effect size of the each pixel.}
 
 \item{...}{further arguments passed to the \code{\link[graphics]{image}} function.}
 }

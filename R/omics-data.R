@@ -16,7 +16,7 @@
 #'
 #' @docType data
 #'
-#' @usage data(omincs)
+#' @usage data(omics)
 #'
 #' @format A list of two objects, \code{omics$omics} and \code{omics$Y}.
 #' \code{omics$omics} is a 3-dimensional array of size (3, 10, 68).
